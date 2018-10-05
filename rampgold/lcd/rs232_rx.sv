@@ -1,5 +1,10 @@
+`ifndef SYNP94
 import libstd::*;
 import libconf::*;
+`else
+//`include "../libconf.sv"
+`include "../stdlib/libstd.sv"
+`endif
 
 module rs232_rx_ctrl
 (

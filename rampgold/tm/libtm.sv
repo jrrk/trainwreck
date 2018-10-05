@@ -16,6 +16,9 @@ import libconf::*;
 import libdebug::*;
 `endif
 
+`ifndef LIBTM
+`define LIBTM
+
 typedef enum bit [1:0] {tm_START, tm_STOP, tm_NOP} tm_unit_ctrl_type;      //Unit start/stop control
 
 typedef enum bit [2:0] {tm_dbg_nop, tm_dbg_start, tm_dbg_stop, tm_dbg_select_start, tm_dbg_select_stop}  tm_dbg_ctrl_type;      //timing model control type
@@ -45,6 +48,8 @@ typedef struct {
   bit [NTHREADIDMSB:0]  tid;        //thread ID
   bit                   running;    //TM is running
 }tm2cpu_token_type;
+
+`endif
 
 `ifndef SYNP94
 endpackage

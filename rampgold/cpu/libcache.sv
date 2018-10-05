@@ -16,6 +16,9 @@ import libconf::*;
 import libopcodes::*;
 `endif
 
+`ifndef LIBCACHE
+`define LIBCACHE
+
 parameter int ICACHELINESIZE_MEM = 32;							//32-byte I$ line size/memory
 parameter int ICACHELINESIZE_IU = ICACHELINESIZE_MEM /2;					//16-byte line size/IU 
 
@@ -322,6 +325,8 @@ typedef bit [63:0] 			dcache_data_out_type;	//d$ 64-bit data output
 
 //type for cache statistics
 typedef enum {hit, miss, nop}  cache_stat_type;
+
+`endif
 
 `ifndef SYNP94
 endpackage

@@ -10,6 +10,9 @@
 package libstd;
 `endif
 
+`ifndef LIBSTD
+`define LIBSTD
+
  function int log2x(int a);
 	for (int i=0;i<31;i++) begin
 		if (2**i >= a) begin
@@ -236,6 +239,7 @@ note that there is a 6-bit encoding for true LRU for four-way set associative
 
  endfunction // fn_dip_ecc
 
+`endif
 
 `ifndef SYNP94
 endpackage

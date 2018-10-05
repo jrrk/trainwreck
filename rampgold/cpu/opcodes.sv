@@ -12,6 +12,9 @@ package libopcodes;
 `endif
 // op decoding (inst(31 downto 30))
 
+`ifndef OPCODES
+`define OPCODES
+
 typedef bit [1:0] op_type;
 
 const op_type FMT2 = 2'b00;
@@ -268,6 +271,9 @@ const bit [4:0]	REGADDR_SCRATCH_0 = 5'd9;		//scratch reg 0
 const bit [4:0]	REGADDR_SCRATCH_1 = 5'd10;		//scratch reg 1
 
 const bit [4:0] REGADDR_ASR15     = 5'd15;  //thread ID register
+
+`endif
+
 `ifndef SYNP94
 endpackage
 `endif

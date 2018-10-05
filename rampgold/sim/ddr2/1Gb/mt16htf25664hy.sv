@@ -5,7 +5,7 @@
 //              `define SODIMM, x8, DUAL_RANK, MAX_MEM (if simulate all the memory space)
 //------------------------------------------------------------------------------  
 
-`timescale 1ns/1ps;
+`timescale 1ns/1ps
 
 module mt16htf25664hy(
 inout  [63:0]              dq,

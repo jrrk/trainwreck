@@ -431,7 +431,7 @@ module amo_alu
       `M_XA_MINU: result =  less ? lhs : rhs;
       `M_XA_MAX:  result = ~less ? lhs : rhs;
       `M_XA_MAXU: result = ~less ? lhs : rhs;
-      default:    result = 'x;
+      default:    result = 'bx;
     endcase
   end
 

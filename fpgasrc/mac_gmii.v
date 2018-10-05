@@ -137,11 +137,11 @@ module mac_gmii
   begin
     if (reset_eth)
     begin
-      reg_rx_val <= '0;
-      reg_rx_cnt <= '0;
-      reg_rx_bits <= '0;
-      reg_rx_good <= '0;
-      reg_rx_bad <= '0;
+      reg_rx_val <= 'b0;
+      reg_rx_cnt <= 'b0;
+      reg_rx_bits <= 'b0;
+      reg_rx_good <= 'b0;
+      reg_rx_bad <= 'b0;
     end
     else
     begin
@@ -155,7 +155,7 @@ module mac_gmii
 
   always @(*)
   begin
-    next_rx_val = '0;
+    next_rx_val = 'b0;
     next_rx_cnt = reg_rx_cnt;
     next_rx_bits = reg_rx_bits;
 
@@ -180,7 +180,7 @@ module mac_gmii
     if (RXgoodFrame || RXbadFrame)
     begin
       next_rx_val = 1'b1;
-      next_rx_cnt = '0;
+      next_rx_cnt = 'b0;
     end
   end
 
@@ -294,8 +294,8 @@ module mac_gmii
   begin
     if (reset_eth)
     begin
-      reg_tx_state <= '0;
-      reg_tx_cnt <= '0;
+      reg_tx_state <= 'b0;
+      reg_tx_cnt <= 'b0;
     end
     else
     begin
@@ -309,7 +309,7 @@ module mac_gmii
     next_tx_state = reg_tx_state;
     next_tx_cnt = reg_tx_cnt;
     TXdataValid = 1'b0;
-    TXdata = '0;
+    TXdata = 'b0;
 
     if (txq_deq_val && reg_tx_cnt[2:0] <= txq_deq_aux_bits[2:0])
     begin
@@ -334,7 +334,7 @@ module mac_gmii
     else
     begin
       next_tx_state = 1'b0;
-      next_tx_cnt = '0;
+      next_tx_cnt = 'b0;
     end
   end
 

@@ -8,6 +8,9 @@
 package libtech;
 `endif
 
+`ifndef LIBTECH
+`define LIBTECH
+
 typedef enum bit {xilinx_virtex5, altera_stratix3} fpgatech_type;
 
 //`ifdef XILINX
@@ -66,6 +69,8 @@ typedef struct packed {
     bit [1:0] padding;
   }bee3;
 }dram_clk_type;
+
+`endif
 
 `ifndef SYNP94
 endpackage

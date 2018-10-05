@@ -17,6 +17,9 @@ import libcache::*;
 import libconf::*;
 `endif
 
+`ifndef LIBMEMIF
+`define LIBMEMIF
+
 //-------------------------memory data structures------------------------------
 //dual port lutram
 typedef struct packed{	
@@ -225,6 +228,7 @@ typedef struct packed {
   bit                                       parity;
 }mem_ret_buf_type;
 
+`endif
 
 `ifndef SYNP94
 endpackage

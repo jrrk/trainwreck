@@ -7,6 +7,9 @@ package libfp;
 import libconf::*;
 `endif
 
+`ifndef LIBFP
+`define LIBFP
+
 parameter int FP_ADD_LATENCY = 14;      // latency of the coregen fp adder
 parameter int FP_MULT_LATENCY = 16;     // latency of the coregen fp multiplier
 parameter int FP_CMP_LATENCY = 2;       // latency of the coregen fp comparator
@@ -140,6 +143,8 @@ typedef struct {
   bit [NTHREADIDMSB:0]	 tid;				    //thread id
   bit                   valid;      //output valid
 } fpu_fcmp_fu_out_type; 
+
+`endif
 
 `ifndef SYNP94
 endpackage

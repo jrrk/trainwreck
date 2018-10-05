@@ -56,7 +56,7 @@ module riscvTop
    wire [31:0] htif_tohost2;
    wire [31:0] htif_tohost3;
   
-   assign htif_req_wmask = (reset) ? '0 : '1;
+   assign htif_req_wmask = (reset) ? 'b0 : 'b1;
   
 //  assign htif_tohost1 = 32'b0;
   assign htif_tohost2 = 32'b0;

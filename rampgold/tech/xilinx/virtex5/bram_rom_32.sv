@@ -352,6 +352,7 @@ module xcv5_bram_rom_32 #(parameter ADDRMSB = 12		//512 deep by default
             .DIPB()
             );			
 
+`ifdef OUTPUT_ROM
       `include "../../../../software/output/rom_0.v"
       `include "../../../../software/output/rom_1.v"
       `include "../../../../software/output/rom_2.v"
@@ -360,6 +361,8 @@ module xcv5_bram_rom_32 #(parameter ADDRMSB = 12		//512 deep by default
       `include "../../../../software/output/rom_5.v"
       `include "../../../../software/output/rom_6.v"
       `include "../../../../software/output/rom_7.v"
+`endif
+
   end           
 	endgenerate
 endmodule

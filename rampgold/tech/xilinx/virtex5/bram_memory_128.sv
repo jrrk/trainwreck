@@ -454,6 +454,7 @@ module xcv5_bram_memory_128 #(parameter dataprot = 2,	//data are protected with 
             .DIPB()
             );			
 
+`ifdef OUTPUT_BRAM
       `include "../../../../software/output/bram_0.v"
       `include "../../../../software/output/bram_1.v"
       `include "../../../../software/output/bram_2.v"
@@ -462,7 +463,8 @@ module xcv5_bram_memory_128 #(parameter dataprot = 2,	//data are protected with 
       `include "../../../../software/output/bram_5.v"
       `include "../../../../software/output/bram_6.v"
       `include "../../../../software/output/bram_7.v"
-           
+`endif
+
         `else
            for (i=0;i<8;i++) begin
             RAMB36 #(					

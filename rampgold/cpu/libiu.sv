@@ -26,6 +26,9 @@ import libfp::*;
 `include "../tech/libtech.sv"
 `endif
 
+`ifndef LIBIU
+`define LIBIU
+
 //clocks
 typedef struct {
   bit	clk;			  //base clock
@@ -368,6 +371,8 @@ function automatic bit [NREGADDRMSB:0] regaddr(bit [NTHREADIDMSB:0] threadid, bi
 	
 	return ra;
 endfunction
+
+`endif
 
 `ifndef SYNP94
 endpackage

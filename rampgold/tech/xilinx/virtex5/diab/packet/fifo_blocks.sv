@@ -17,10 +17,10 @@ module voq_command_fifo #(parameter int DEPTH=512, parameter int WIDTH = 72)(
                                              input  bit wclk,
                                              input  bit rclk,
                                              input  bit rst,
-                                             input  bit [DWIDTH-1:0] din,
+                                             input  bit [WIDTH-1:0] din,
                                              input  bit re,
                                              input  bit we,
-                                             output bit [DWIDTH-1:0] dout, 
+                                             output bit [WIDTH-1:0] dout, 
                                              output bit empty,
                                              output bit sberr,                //ecc output
                                              output bit dberr);

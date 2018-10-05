@@ -7,8 +7,13 @@
 `timescale 1ns / 1ps
 
 import liblcd::*;
+`ifndef SYNP94
 import libstd::*;
 import libconf::*;
+`else
+//`include "../libconf.sv"
+`include "../stdlib/libstd.sv"
+`endif
 
 module lcd_base
 (

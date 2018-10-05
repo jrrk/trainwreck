@@ -9,6 +9,9 @@ package libeth;
 //import libconf::*;
 `endif
 
+`ifndef LIBETH
+`define LIBETH
+
 typedef enum bit [2:0] {tx_start_empty, tx_start, slot_start, slot_data, tx_none} tx_ring_slot_type;        //MAC: tx_start indicates updating the TX header
 
 typedef struct packed { 
@@ -86,6 +89,8 @@ function automatic bit isRetransmit(bit [15:0] seqnum_old, bit[15:0] seqnum_new)
   
   return ret; 
 endfunction
+
+`endif
 
 `ifndef SYNP94
 endpackage

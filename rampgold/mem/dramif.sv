@@ -8,9 +8,15 @@
 `ifndef DRAMUIF
 `define DRAMUIF
 
+`ifndef SYNP94
 import libiu::*;
 import libcache::*;
 import libmemif::*;
+`else
+`include "../cpu/libiu.sv"
+`include "../cpu/libcache.sv"
+`include "libmemif.sv"
+`endif
 
 interface mem_controller_interface
 (

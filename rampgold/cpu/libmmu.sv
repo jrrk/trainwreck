@@ -17,6 +17,8 @@ import libconf::*;
 import libopcodes::*;
 `endif
 
+`ifndef LIBMMU
+`define LIBMMU
 
 parameter int PAGESIZE = 4096;				//4k page size 
 parameter int NITLBASSOC = 2;     //itlb associativity
@@ -585,6 +587,8 @@ function automatic bit [31:8] get_new_ppn(mmu_page_table_entry_type pte, bit [1:
   
   return ppn;
 endfunction
+
+`endif
 
 `ifndef SYNP94
 endpackage

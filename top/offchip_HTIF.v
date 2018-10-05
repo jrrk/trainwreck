@@ -186,9 +186,9 @@ module HTIF_offchip
   begin
     if (rst)
     begin
-      eth2htif_data_in <= '0;
-      eth2htif_aux_in <= '0;
-      eth_in_bits_r <= '0;
+      eth2htif_data_in <= 'b0;
+      eth2htif_aux_in <= 'b0;
+      eth_in_bits_r <= 'b0;
       eth_in_val_r <= 1'b0;
       eth2htif_wen <= 1'b0;
     end
@@ -196,7 +196,7 @@ module HTIF_offchip
       eth_in_bits_r <= eth_in_bits;
       eth_in_val_r <= eth_in_val;
       eth2htif_data_in <= eth_in_bits_r;
-      eth2htif_aux_in[7:1] <= '0;
+      eth2htif_aux_in[7:1] <= 'b0;
       eth2htif_aux_in[0] <= eth_done;
       eth2htif_wen <= eth_in_val_r;
     end
@@ -206,7 +206,7 @@ module HTIF_offchip
   begin
     if (rst) 
     begin
-      eth_out_bits <= '0;
+      eth_out_bits <= 'b0;
       eth_out_val <= 1'b0;
     end
     else
@@ -226,7 +226,7 @@ module HTIF_offchip
   begin
     if (rst) begin
       for (i=0; i<MAX_PACKET_WORDS; i=i+1)
-          buf_ram[i] <= '0;
+          buf_ram[i] <= 'b0;
       htif_flag <= 1'b0;
     end
     else 
@@ -251,7 +251,7 @@ module HTIF_offchip
     end
   end  
 
-  assign {paysize,seqno,cmd} = rst ? '0 : buf_ram[0];
+  assign {paysize,seqno,cmd} = rst ? 'b0 : buf_ram[0];
 //  assign  addr = buf_ram[1];
  // assign  payload1 = buf_ram[2];
 //  assign  payload2 = buf_ram[3];
@@ -259,7 +259,7 @@ module HTIF_offchip
   assign  cmd_val = cmd == cmd_read_mem || cmd == cmd_write_mem ||
               cmd == cmd_read_cr  || cmd == cmd_write_cr  ||
               cmd == cmd_start    || cmd == cmd_stop;
-  assign  seqno_val = '1;
+  assign  seqno_val = 'b1;
   
   
   assign paysize_val = (cmd == cmd_write_mem || cmd == cmd_read_mem) ? (paysize == 16)
@@ -271,7 +271,7 @@ module HTIF_offchip
     
    always @(*)
      begin
-       next_words = '0; 
+       next_words = 'b0; 
        case (eth_state)
          state_eth_read: begin
                next_eth_state = words == MAX_PACKET_WORDS      ? state_eth_error   /*if we want to send more than max_packet_words -> error*/
@@ -281,12 +281,12 @@ module HTIF_offchip
                           : words == 0                     ? state_eth_read   
                           : eth_in_val_r && words == 1+incoming_paysize[31:3] ? state_take_htif /*if we read all the packets from the host go to process, */
                           :                                  state_eth_read;        /*if not, keep reading*/ 
-              next_words = next_eth_state == state_take_htif ? '0 : words + eth_in_val_r;
+              next_words = next_eth_state == state_take_htif ? 'b0 : words + eth_in_val_r;
             end
          state_take_htif: begin
               next_eth_state = htif_flag ? state_eth_write
                              : state_take_htif;
-             next_words = next_eth_state == state_eth_write ? '0 : words + (!htif2eth_empty); 
+             next_words = next_eth_state == state_eth_write ? 'b0 : words + (!htif2eth_empty); 
           end
    
          state_eth_write:
@@ -294,7 +294,7 @@ module HTIF_offchip
                   next_eth_state = eth_in_val              ? state_eth_error
                              : eth_out_rdy && words == 1+paysize[31:3] ? state_eth_read 
                              :                                      state_eth_write; /*this state is waiting for the response of the target (out_rdy)*/
-                  next_words = next_eth_state == state_eth_read ? '0 : words + eth_out_rdy;        
+                  next_words = next_eth_state == state_eth_read ? 'b0 : words + eth_out_rdy;        
          end
             
          state_eth_error: begin
@@ -311,7 +311,7 @@ module HTIF_offchip
     begin
       if(rst)
       begin
-        words <= '0;
+        words <= 'b0;
         eth_state <= state_eth_read;
       end
       else
@@ -322,7 +322,7 @@ module HTIF_offchip
     end
 
       assign eth_in_rdy = rst ? 1'b0 : eth_state == state_eth_read;
-      assign eth_out_bits = rst ? '0 : buf_ram[words];
+      assign eth_out_bits = rst ? 'b0 : buf_ram[words];
       assign eth_out_val = rst ? 1'b0: (eth_state == state_eth_write);
    //   assign eth_out_val = state_eth == state_eth_write;
    //   assign eth_out_bits = buf_ram[words];
@@ -333,7 +333,7 @@ module HTIF_offchip
    begin
     if (rst ) begin
        for (i=0; i < MAX_PACKET_WORDS; i=i+1) 
-         buf_ram_htif[i] <= '0;
+         buf_ram_htif[i] <= 'b0;
        eth_flag <= 1'b0;
     end
     else begin
@@ -368,7 +368,7 @@ module HTIF_offchip
   begin 
      if (rst)
         for (i=0;i<MAX_PACKET_BYTES; i=i+1)
-       buf_htif[i] <= '0;
+       buf_htif[i] <= 'b0;
      else begin
        if (htif_out_val)
          buf_htif[bytes] <=htif_out_bits;
@@ -427,23 +427,23 @@ module HTIF_offchip
       end
   end
         
-  assign {htif_paysize,htif_seqno,htif_cmd} = rst ? '0 : buf_ram_htif[0];
+  assign {htif_paysize,htif_seqno,htif_cmd} = rst ? 'b0 : buf_ram_htif[0];
   assign eth2htif_rden = (htif_state == state_take_eth) & (~eth2htif_empty);
  // assign htif2eth_wen = (htif_state == state_put_htif);
 
-  //assign htif2eth_data_in = (htif_state == state_put_htif) ? buf_ram_htif[htif_words] : '0;
+  //assign htif2eth_data_in = (htif_state == state_put_htif) ? buf_ram_htif[htif_words] : 'b0;
   assign htif_done = (htif_state == state_put_htif) & (htif_words == 1+htif_paysize[31:3]);
 always @(posedge clk_offchip)
   begin
     if (rst)
     begin
-      htif2eth_data_in <= '0;
-      htif2eth_aux_in <= '0;
-      htif2eth_wen <= '0;
+      htif2eth_data_in <= 'b0;
+      htif2eth_aux_in <= 'b0;
+      htif2eth_wen <= 'b0;
     end
     else begin
       htif2eth_data_in[63:0] <= buf_ram_htif[htif_words];
-      htif2eth_aux_in[7:1] <= '0;
+      htif2eth_aux_in[7:1] <= 'b0;
       htif2eth_aux_in[0]   <= htif_done;
       htif2eth_wen <= htif_state == state_put_htif;   
     end
@@ -452,8 +452,8 @@ always @(posedge clk_offchip)
   
    always @(*) 
     begin
-      next_bytes = '0;
-      next_htif_words = '0;
+      next_bytes = 'b0;
+      next_htif_words = 'b0;
       num_in_bytes_c = num_in_bytes;
       num_out_bytes_c = num_out_bytes;        
       case(htif_state)
@@ -499,7 +499,7 @@ always @(posedge clk_offchip)
                 next_htif_state = htif_out_val ? state_htif_error
                                 : eth_flag     ? state_htif_send
                                 :                state_take_eth;
-                next_htif_words = next_htif_state == state_htif_send ? '0 : htif_words + (!eth2htif_empty); 
+                next_htif_words = next_htif_state == state_htif_send ? 'b0 : htif_words + (!eth2htif_empty); 
   
             end
          
@@ -507,7 +507,7 @@ always @(posedge clk_offchip)
             begin
                 next_htif_state = htif_in_rdy && bytes+1 == num_in_bytes ? state_htif_receive
                                 : state_htif_send;
-                next_bytes = next_htif_state == state_htif_receive ? '0 : bytes + htif_in_rdy;
+                next_bytes = next_htif_state == state_htif_receive ? 'b0 : bytes + htif_in_rdy;
             
             end
           
@@ -517,14 +517,14 @@ always @(posedge clk_offchip)
                            : bytes == num_out_bytes ? state_put_htif  //: htif_out_val && bytes+1 == num_out_bytes ? state_write
 //we want to make sure that we have something to send back to the ethernet, that is why we wait all the bytes to arrive from htif
                            : state_htif_receive;
-                next_bytes =  bytes + htif_out_val; // next_state == state_write ? '0 :
+                next_bytes =  bytes + htif_out_val; // next_state == state_write ? 'b0 :
             end
            
            state_put_htif:
            begin
               next_htif_state = htif_words == 1+htif_paysize[31:3] ? state_htif_idle
                               :                                      state_put_htif;
-              next_htif_words = next_htif_state == state_htif_idle ? '0 : htif_words + 1;
+              next_htif_words = next_htif_state == state_htif_idle ? 'b0 : htif_words + 1;
            end
   
            state_htif_error: begin
@@ -541,10 +541,10 @@ always @(posedge clk_offchip)
     begin
       if(rst)
       begin
-        bytes <= '0;
-        htif_words <= '0;
-        num_in_bytes <= '0;
-        num_out_bytes <= '0;
+        bytes <= 'b0;
+        htif_words <= 'b0;
+        num_in_bytes <= 'b0;
+        num_out_bytes <= 'b0;
         htif_state <= state_htif_idle;
       end
       else

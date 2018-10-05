@@ -13,6 +13,9 @@ import libiu::*;
 import libconf::*;
 `endif
 
+`ifndef LIBXALU
+`define LIBXALU
+
 typedef struct packed{
 	logic [NTHREADIDMSB:0]	tid;				    //thread id
 	logic [31:0]		         op1, op2;			//op1, op2	
@@ -100,6 +103,8 @@ typedef struct {
     bit                   we;
     xalu_valid_type		     data;	 //write data;
 }xalu_valid_in_type;
+
+`endif
 
 `ifndef SYNP94
 endpackage

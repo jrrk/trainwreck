@@ -14,6 +14,9 @@ package libconf;
 import libstd::*;
 `endif
 
+`ifndef LIBCONF
+`define LIBCONF
+
 parameter int NTHREAD = 64;
 parameter int NWIN = 7;					//number of regsier windows
 parameter int NTHREADIDMSB = log2x(NTHREAD) - 1;
@@ -85,6 +88,9 @@ parameter BOARDSEL = 1;           //ML505 = 1, BEE3 = 0
 
 //debugging option
 parameter ADVDEBUGDMA = 0;        //advanced debug DMA support, support read/write register content
+
+`endif
+
 `ifndef SYNP94
 endpackage
 `endif

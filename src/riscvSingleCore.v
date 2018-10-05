@@ -83,7 +83,7 @@ module riscvCore
     .error_mode(error_mode),
     .log_control(log_control),
 
-    .htif_start(htif_start),
+//    .htif_start(htif_start),
     .htif_fromhost_wen(htif_fromhost_wen),
     .htif_fromhost(htif_fromhost),
     .htif_tohost(htif_tohost),
@@ -94,15 +94,15 @@ module riscvCore
 
     .vec_cmdq_bits(),
     .vec_cmdq_val(),
-    .vec_cmdq_rdy(1'b1),
+//    .vec_cmdq_rdy(1'b1),
 
     .vec_ximm1q_bits(),
     .vec_ximm1q_val(),
-    .vec_ximm1q_rdy(1'b1),
+//    .vec_ximm1q_rdy(1'b1),
   
     .vec_ximm2q_bits(),       
     .vec_ximm2q_val(),
-    .vec_ximm2q_rdy(1'b1),    
+//    .vec_ximm2q_rdy(1'b1),    
   
     .vec_ackq_val(1'b1),      
     .vec_ackq_rdy(),

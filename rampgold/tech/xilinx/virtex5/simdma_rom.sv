@@ -335,9 +335,10 @@ module xcv5_simdma_init_rom(input iu_clk_type gclk, input bit rst,
             .DIB(),
             .DIPB()
             );			
-		
-      `include "../../../../software/output/init_rom.v"
 
+`ifdef INIT_ROM		
+      `include "../../../../software/output/init_rom.v"
+`endif
            
         
 endmodule     

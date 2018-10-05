@@ -111,14 +111,14 @@ parameter MAX_PACKET_IN_CMD = 2;
     if (rst)
       in_bits_r <= in_bits;
     else
-      in_bits_r <= '0;
+      in_bits_r <= 'b0;
   end
 
   always @(posedge clk)
   begin
   if (rst)
     for (i=0; i < MAX_PACKET_BYTES; i=i+1)
-      buf_ram[i] <= '0;
+      buf_ram[i] <= 'b0;
   else
   begin
     if (in_val)
@@ -172,10 +172,10 @@ parameter MAX_PACKET_IN_CMD = 2;
   begin
     if(rst)
     begin
-      words <= '0;
+      words <= 'b0;
       state <= state_read_cmd;
-      num_in_bytes <= '0;
-      num_out_bytes <= '0;
+      num_in_bytes <= 'b0;
+      num_out_bytes <= 'b0;
     end
     else
     begin
@@ -203,7 +203,7 @@ parameter MAX_PACKET_IN_CMD = 2;
 
   always @(*)
   begin
-    next_words = '0;
+    next_words = 'b0;
     next_state = state_read_cmd;
     num_in_bytes_c = num_in_bytes;
     num_out_bytes_c = num_out_bytes;
@@ -294,7 +294,7 @@ parameter MAX_PACKET_IN_CMD = 2;
           next_state = in_val                              ? state_error
                      : out_rdy && words+1 == num_out_bytes ? state_read_cmd  //i have to see where does out_rdy come from and what it would be for start or stop cmd
                      :                                       state_respond; /*this state is waiting for the response of the target (out_rdy)*/
-          next_words = next_state == state_read_cmd ? '0 : words + out_rdy; /*reset the words if going back to read, if not it waits for all data to arrive*/
+          next_words = next_state == state_read_cmd ? 'b0 : words + out_rdy; /*reset the words if going back to read, if not it waits for all data to arrive*/
         end
 
       state_error:
@@ -309,12 +309,12 @@ parameter MAX_PACKET_IN_CMD = 2;
   assign out_val = rst ? 1'b0 : state == state_respond;
   assign out_bits = rst ? in_bits_r : buf_ram[words];
 
- assign htif_fromhost0 = rst ? '0 : {buf_ram[17],buf_ram[16],buf_ram[15],buf_ram[14],buf_ram[13],buf_ram[12],buf_ram[11],buf_ram[10]}; 
+ assign htif_fromhost0 = rst ? 'b0 : {buf_ram[17],buf_ram[16],buf_ram[15],buf_ram[14],buf_ram[13],buf_ram[12],buf_ram[11],buf_ram[10]}; 
  
 
-  assign htif_fromhost1 = rst ? '0 :  {buf_ram[17],buf_ram[16],buf_ram[15],buf_ram[14],buf_ram[13],buf_ram[12],buf_ram[11],buf_ram[10]}; 
+  assign htif_fromhost1 = rst ? 'b0 :  {buf_ram[17],buf_ram[16],buf_ram[15],buf_ram[14],buf_ram[13],buf_ram[12],buf_ram[11],buf_ram[10]}; 
 
-  assign htif_fromhost2 = rst ? '0 :  {buf_ram[17],buf_ram[16],buf_ram[15],buf_ram[14],buf_ram[13],buf_ram[12],buf_ram[11],buf_ram[10]}; 
+  assign htif_fromhost2 = rst ? 'b0 :  {buf_ram[17],buf_ram[16],buf_ram[15],buf_ram[14],buf_ram[13],buf_ram[12],buf_ram[11],buf_ram[10]}; 
 
   assign htif_fromhost_wen0 = rst ? 1'b0 : cmd == cmd_write_cr && state == state_process && addr[17:16] == 2'b00;
   assign htif_fromhost_wen1 = rst ? 1'b0 : cmd == cmd_write_cr && state == state_process && addr[17:16] == 2'b01;
@@ -334,7 +334,7 @@ parameter MAX_PACKET_IN_CMD = 2;
    assign htif_req_data[31:16] =  {buf_ram[17],buf_ram[16],buf_ram[15],buf_ram[14]};
    assign htif_req_data[15:0] =  {buf_ram[13],buf_ram[12],buf_ram[11],buf_ram[10]};
     
-   assign htif_req_tag = '0;
+   assign htif_req_tag = 'b0;
 
   assign error = state == state_error;
 

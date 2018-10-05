@@ -10,6 +10,9 @@ package libdebug;
 import libconf::*;
 `endif
 
+`ifndef LIBDEBUG
+`define LIBDEBUG
+
 //typedef enum bit [1:0] {dma_NOP=2'b0, dma_ST, dma_LD, dma_FMT3} debug_dma_cmd_type;
 
 typedef enum bit {dma_NOP=1'b0, dma_OP} debug_dma_cmd_type;
@@ -94,6 +97,7 @@ typedef struct {
   bit                     ctrl_we;
 }debug_dma_cmdif_in_type;
 
+`endif
 
 `ifndef SYNP94
 endpackage

@@ -21,6 +21,9 @@ package libucode;
 import libconf::*;
 `endif
 
+`ifndef LIBUCODE
+`define LIBUCODE
+
 parameter int NUPCMSB = 4;				//MSB for microcode pc, supports up to 32 instructions
 
 //microcode addresses
@@ -67,6 +70,8 @@ typedef struct packed {
 	bit		cwp_rd;		    //CWP relative index indicator for rd
 	bit [31:0]	inst;		//microcode instruction 
 }microcode_out_type;
+
+`endif
 
 `ifndef SYNP94
 endpackage

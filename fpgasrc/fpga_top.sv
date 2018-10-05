@@ -6,6 +6,8 @@
 
 `timescale 1ns / 1ps
 
+`ifndef SYNP94
+import libstd::*;
 import libconf::*;
 import libopcodes::*;
 import libiu::*;
@@ -18,6 +20,11 @@ import libtech::*;
 import libeth::*;
 import liblcd::*;
 import libstd::*;
+`else
+//`include "../libconf.sv"
+`include "../stdlib/libstd.sv"
+`endif
+
 
 `include "riscvConst.vh"
 
